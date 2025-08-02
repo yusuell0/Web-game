@@ -1,18 +1,599 @@
-# This .gitignore is appropriate for repositories deployed to GitHub Pages and using
-# a Gemfile as specified at https://github.com/github/pages-gem#conventional
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameTech - Teléfonos Gamer y Juegos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6a0dad;
+            --secondary: #ff00ff;
+            --dark: #1a1a2e;
+            --light: #f0f0f5;
+            --accent: #00ffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: var(--light);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid var(--secondary);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--accent);
+            text-shadow: 0 0 10px var(--accent);
+        }
+        
+        .logo i {
+            color: var(--secondary);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .hero {
+            padding: 5rem 0;
+            text-align: center;
+            background: radial-gradient(circle, rgba(106,13,173,0.2) 0%, rgba(26,26,46,0.5) 70%);
+            margin-bottom: 3rem;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 15px var(--accent);
+            background: linear-gradient(to right, var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            color: #ccc;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 0, 255, 0.4);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 0, 255, 0.6);
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--accent), var(--secondary));
+            border-radius: 2px;
+        }
+        
+        .categories {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .category-btn {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            color: var(--light);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .category-btn.active, .category-btn:hover {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-color: transparent;
+        }
+        
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+        
+        .product-card {
+            background: rgba(30, 30, 46, 0.7);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+            border: 1px solid rgba(106, 13, 173, 0.3);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(106, 13, 173, 0.5);
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: linear-gradient(45deg, var(--secondary), var(--primary));
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            z-index: 10;
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+        }
+        
+        .product-info {
+            padding: 1.5rem;
+        }
+        
+        .product-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+        
+        .product-rating {
+            color: gold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-description {
+            color: #aaa;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            min-height: 60px;
+        }
+        
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+        
+        .product-specs {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #888;
+        }
+        
+        .add-to-cart {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .add-to-cart:hover {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-color: transparent;
+        }
+        
+        .featured {
+            margin: 5rem 0;
+        }
+        
+        .featured-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+        
+        .featured-image {
+            flex: 1;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        .featured-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .featured-details {
+            flex: 1;
+        }
+        
+        .featured-title {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+        
+        .featured-description {
+            margin-bottom: 1.5rem;
+            color: #ccc;
+            line-height: 1.8;
+        }
+        
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .spec-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .spec-item i {
+            color: var(--secondary);
+            font-size: 1.2rem;
+        }
+        
+        footer {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 3rem 0 1.5rem;
+            margin-top: 5rem;
+            border-top: 1px solid var(--primary);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-column h3 {
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--light);
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+        
+        .social-icons a:hover {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .featured-content {
+                flex-direction: column;
+            }
+            
+            .specs-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <i class="fas fa-gamepad"></i>
+                    <span>GameTech</span>
+                </div>
+                <div class="nav-links">
+                    <a href="#phones">Teléfonos</a>
+                    <a href="#games">Juegos</a>
+                    <a href="#featured">Destacados</a>
+                    <a href="#contact">Contacto</a>
+                </div>
+            </nav>
+        </div>
+    </header>
 
-# Basic Jekyll gitignores (synchronize to Jekyll.gitignore)
-_site/
-.sass-cache/
-.jekyll-cache/
-.jekyll-metadata
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>ELÉVATE AL SIGUIENTE NIVEL</h1>
+            <p>Descubre los mejores teléfonos gamer y los juegos más emocionantes para vivir la experiencia definitiva en movilidad</p>
+            <a href="#phones" class="btn">Explorar Productos</a>
+        </div>
+    </section>
 
-# Additional Ruby/bundler ignore for when you run: bundle install
-/vendor
+    <!-- Productos: Teléfonos -->
+    <section id="phones" class="container">
+        <h2 class="section-title">Teléfonos Gamer</h2>
+        <div class="categories">
+            <button class="category-btn active">Todos</button>
+            <button class="category-btn">Alto Rendimiento</button>
+            <button class="category-btn">Refrigeración</button>
+            <button class="category-btn">Batería Extendida</button>
+        </div>
+        <div class="products">
+            <!-- Teléfono 1 -->
+            <div class="product-card">
+                <span class="product-badge">NUEVO</span>
+                <img src="https://images.unsplash.com/photo-1610945264803-c22b62d2a7b3?auto=format&fit=crop&w=500&q=80" alt="ROG Phone 7" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">ASUS ROG Phone 7</h3>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span>(128)</span>
+                    </div>
+                    <p class="product-description">El teléfono definitivo para gaming con Snapdragon 8 Gen 2 y pantalla AMOLED de 165Hz.</p>
+                    <div class="product-specs">
+                        <span>RAM: 16GB</span>
+                        <span>Almacenamiento: 512GB</span>
+                    </div>
+                    <div class="product-price">$1,299.99</div>
+                    <button class="add-to-cart"><i class="fas fa-shopping-cart"></i> Añadir al carrito</button>
+                </div>
+            </div>
+            
+            <!-- Teléfono 2 -->
+            <div class="product-card">
+                <span class="product-badge">POPULAR</span>
+                <img src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=500&q=80" alt="Red Magic 8 Pro" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Red Magic 8 Pro</h3>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span>(96)</span>
+                    </div>
+                    <p class="product-description">Ventilador interno activo, Snapdragon 8 Gen 2 y pantalla sin bordes de 120Hz.</p>
+                    <div class="product-specs">
+                        <span>RAM: 12GB</span>
+                        <span>Almacenamiento: 256GB</span>
+                    </div>
+                    <div class="product-price">$999.99</div>
+                    <button class="add-to-cart"><i class="fas fa-shopping-cart"></i> Añadir al carrito</button>
+                </div>
+            </div>
+            
+            <!-- Teléfono 3 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1605236453806-6ff36851218e?auto=format&fit=crop&w=500&q=80" alt="Black Shark 5 Pro" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Black Shark 5 Pro</h3>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span>(87)</span>
+                    </div>
+                    <p class="product-description">Diseño gamer agresivo con triggers magnéticos y carga rápida de 120W.</p>
+                    <div class="product-specs">
+                        <span>RAM: 12GB</span>
+                        <span>Almacenamiento: 256GB</span>
+                    </div>
+                    <div class="product-price">$899.99</div>
+                    <button class="add-to-cart"><i class="fas fa-shopping-cart"></i> Añadir al carrito</button>
+                </div>
+            </div>
+            
+            <!-- Teléfono 4 -->
+            <div class="product-card">
+                <span class="product-badge">OFERTA</span>
+                <img src="https://images.unsplash.com/photo-1595941069915-4ebc5197c14a?auto=format&fit=crop&w=500&q=80" alt="Lenovo Legion Phone" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Lenovo Legion Phone</h3>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span>(74)</span>
+                    </div>
+                    <p class="product-description">Diseño horizontal único, dos puertos USB-C y batería de 6000mAh.</p>
+                    <div class="product-specs">
+                        <span>RAM: 8GB</span>
+                        <span>Almacenamiento: 128GB</span>
+                    </div>
+                    <div class="product-price">$799.99</div>
+                    <button class="add-to-cart"><i class="fas fa-shopping-cart"></i> Añadir al carrito</button>
+                </div>
+            </div>
+        </div>
+    </section>
 
-# Specific ignore for GitHub Pages
-# GitHub Pages will always use its own deployed version of pages-gem 
-# This means GitHub Pages will NOT use your Gemfile.lock and therefore it is
-# counterproductive to check this file into the repository.
-# Details at https://github.com/github/pages-gem/issues/768
-Gemfile.lock
+    <!-- Productos: Juegos -->
+    <section id="games" class="container">
+        <h2 class="section-title">Juegos Destacados</h2>
+        <div class="categories">
+            <button class="category-btn active">Todos</button>
+            <button class="category-btn">Battle Royale</button>
+            <button class="category-btn">RPG</button>
+            <button class="category-btn">Estrategia</button>
+            <button class="category-btn">Deportes</button>
+        </div>
+        <div class="products">
+            <!-- Juego 1 -->
+            <div class="product-card">
+                <span class="product-badge">TOP</span>
+                <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=500&q=80" alt="Genshin Impact" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Genshin Impact</h3>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span>(4,850)</span>
+                    </div>
+                    <p class="product-description">RPG de acción de mundo abierto con impresionantes gráficos y combate elemental.</p>
+                    <div class="product-price">Gratis</div>
+                    <button class="add-to-cart"><i class="fas fa-download"></i> Descargar</button>
+                </div>
+            </div>
+            
+            <!-- Juego 2 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1552820728-8b83bb6b773f?auto=format&fit=crop&w=500&q=80" alt="PUBG Mobile" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">PUBG Mobile</h3>
+                    <div class="product-rating">
+                        <i class="
